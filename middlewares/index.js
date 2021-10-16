@@ -1,6 +1,6 @@
-const controllerWrapper = require("./controllerWrapper")
-const validation = require("./validation")
+const controllerWrapper = require('./controllerWrapper')
+const validation = require('./validation')
 module.exports = {
-    controllerWrapper,
-    validation
+  controllerWrapper,
+  validation
 }
