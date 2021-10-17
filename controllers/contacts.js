@@ -1,8 +1,8 @@
-const {Contact} = require("../models")
+const { Contact } = require('../models')
 const { NotFound, BadRequest } = require('http-errors')
 
 const getAllContacts = async (req, res, next) => {
-  const result = await Contact.find({}, "_id name email phone favorite")
+  const result = await Contact.find({}, '_id name email phone favorite')
   res.json({
     status: 'success',
     code: 200,
@@ -14,7 +14,7 @@ const getAllContacts = async (req, res, next) => {
 
 const getContactById = async (req, res, next) => {
   const { contactId } = req.params
-  const result = await Contact.findById(contactId, "_id name email phone favorite")
+  const result = await Contact.findById(contactId, '_id name email phone favorite')
   if (!result) {
     throw new NotFound(`Contact with id=${contactId} not found`)
   }
@@ -56,7 +56,7 @@ const removeContactById = async (req, res, next) => {
 
 const updateContactById = async (req, res, next) => {
   const { contactId } = req.params
-  const result = await Contact.findByIdAndUpdate(contactId, req.body, {new:true})
+  const result = await Contact.findByIdAndUpdate(contactId, req.body, { new: true })
 
   if (!result) {
     throw new NotFound(`Contact with id=${contactId} not found`)
@@ -72,12 +72,12 @@ const updateContactById = async (req, res, next) => {
 
 const updateContactFavorite = async (req, res, next) => {
   const { contactId } = req.params
-  const {favorite} = req.body
+  const { favorite } = req.body
   if (!favorite) {
-    throw new BadRequest(`missing field favorite`)
+    throw new BadRequest('missing field favorite')
   }
-  const result = await Contact.findByIdAndUpdate(contactId, {favorite}, {new:true})
-  
+  const result = await Contact.findByIdAndUpdate(contactId, { favorite }, { new: true })
+
   if (!result) {
     throw new NotFound(`Contact with id=${contactId} not found`)
   }
