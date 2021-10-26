@@ -37,6 +37,8 @@ const User = model('user', userSchema)
 const joiSchema = Joi.object({
   password: Joi.string().required().min(8),
   email: Joi.string().required(),
+  subscription: Joi.string(),
+  token: Joi.string()
 })
 
 module.exports = {
