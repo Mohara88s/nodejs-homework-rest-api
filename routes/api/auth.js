@@ -11,8 +11,4 @@ router.post('/signin', validation(joiSchema), controllerWrapper(ctrl.signin))
 
 router.get('/signout', authenticate, controllerWrapper(ctrl.signout))
 
-router.get('/current', authenticate, controllerWrapper(ctrl.current))
-
-router.patch('/current', authenticate, controllerWrapper(ctrl.updateSubscription))
-
 module.exports = router
