@@ -24,7 +24,7 @@ const userSchema = Schema({
   },
   avatarURL: {
     type: String,
-    required:true,
+    required: true,
   },
 }, { versionKey: false, timestamps: true })
 
