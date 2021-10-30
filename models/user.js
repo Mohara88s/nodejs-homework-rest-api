@@ -2,6 +2,8 @@ const { Schema, model } = require('mongoose')
 const Joi = require('joi')
 const bcrypt = require('bcryptjs')
 
+const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+
 const userSchema = Schema({
   password: {
     type: String,
@@ -12,6 +14,7 @@ const userSchema = Schema({
     type: String,
     required: [true, 'Email is required'],
     unique: true,
+    match: emailRegex,
   },
   subscription: {
     type: String,
@@ -25,6 +28,14 @@ const userSchema = Schema({
   avatarURL: {
     type: String,
     required: true,
+  },
+  verification: {
+    type: Boolean,
+    default: false,
+  },
+  verificationToken: {
+    type: String,
+    required: [true, 'Verify token is required'],
   },
 }, { versionKey: false, timestamps: true })
 
@@ -40,7 +51,7 @@ const User = model('user', userSchema)
 
 const joiSchema = Joi.object({
   password: Joi.string().required().min(8),
-  email: Joi.string().required(),
+  email: Joi.string().required().email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } }),
   subscription: Joi.string(),
   token: Joi.string()
 })
